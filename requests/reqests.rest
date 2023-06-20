@@ -14,6 +14,6 @@ POST http://localhost:8008/contacts/ HTTP/1.1
 content-type: application/json
 
 {
-    "name": "Klawa Kat",
-    "number": "420-69"
+    "name": "UwU",
+    "number": "1312"
 }
