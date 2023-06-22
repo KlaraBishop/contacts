@@ -1,5 +1,5 @@
 import axios from 'axios'
-const url = 'http://localhost:8008/contacts'
+const url = 'http://localhost:3000/contacts'
 
 const getAll = async () => {
     const request = await axios.get(url)

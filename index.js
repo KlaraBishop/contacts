@@ -21,6 +21,8 @@ morgan.token('content', (req, res) => JSON.stringify(req.body))
 app.use(express.json())
 app.use(cors())
 
+app.use(express.static('dist'))
+
 app.use(
     morgan(':method :url :status :res[content-length] - :response-time ms :content', {
         skip: (req, res) =>  req.method !== 'POST'
@@ -30,9 +32,6 @@ app.use(morgan(('tiny'), {
     skip: (req, res) => req.method === 'POST'
     })
 )
-
-app.get('/', (req, res) => {
-})
 
 app.get('/info', (req, res) => {
     const numOfContacts = contacts.length
@@ -44,7 +43,6 @@ app.get('/info', (req, res) => {
 })
 
 app.get('/contacts', (req, res) => {
-    console.log(contacts)
     res.json(contacts)
 })
 
