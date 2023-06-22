@@ -1,15 +1,25 @@
 'use strict'
 
 import express from 'express'
-import contacts from './db.json' assert { type: "json" }
 import morgan from 'morgan'
 import fs from 'fs'
+import cors from 'cors'
+
+var contacts = []
+
+const setContacts = () => {
+    fs.readFile('./db.txt', (err, data) => {
+        if(err) throw err;
+        contacts = JSON.parse(data)
+    })
+}
 
 const app = express()
 
 morgan.token('content', (req, res) => JSON.stringify(req.body))
 
 app.use(express.json())
+app.use(cors())
 
 app.use(
     morgan(':method :url :status :res[content-length] - :response-time ms :content', {
@@ -21,6 +31,10 @@ app.use(morgan(('tiny'), {
     })
 )
 
+app.get('/', (req, res) => {
+    res.send("./readme.md)
+})
+
 app.get('/info', (req, res) => {
     const numOfContacts = contacts.length
     res.send(
@@ -31,6 +45,7 @@ app.get('/info', (req, res) => {
 })
 
 app.get('/contacts', (req, res) => {
+    console.log(contacts)
     res.json(contacts)
 })
 
@@ -64,14 +79,17 @@ app.post('/contacts', (req, res) => {
     newContact['id'] = contacts.length + 1
     const newContacts = [...contacts, newContact]
     
-    fs.writeFileSync('db.json', JSON.stringify(newContacts), (err) => {
+    fs.writeFileSync('db.txt', JSON.stringify(newContacts), (err) => {
         if(err) throw err
     })
+
+    setContacts()
 
     res.status(200).end()
 })
 
-const PORT = 8008
+const PORT = process.env.PORT || 3000
 app.listen(PORT, () => {
+    setContacts()
     console.log(`Server started on port ${PORT}`)
 })
