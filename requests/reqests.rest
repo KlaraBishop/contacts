@@ -1,3 +1,19 @@
-GET http://localhost:8008/contacts HTTP/1.1
+GET https://aged-sound-1664.fly.dev/contacts HTTP/1.1
 
 ###
+GET https://aged-sound-1664.fly.dev/info HTTP/1.1
+
+###
+GET https://aged-sound-1664.fly.dev/contacts/2 HTTP/1.1
+
+###
+GET https://aged-sound-1664.fly.dev/contacts/5 HTTP/1.1
+
+###
+POST https://aged-sound-1664.fly.dev/contacts/ HTTP/1.1
+content-type: application/json
+
+{
+    "name": "Hewwo",
+    "number": ""
+}
