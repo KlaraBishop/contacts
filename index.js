@@ -32,7 +32,6 @@ app.use(morgan(('tiny'), {
 )
 
 app.get('/', (req, res) => {
-    res.send("./readme.md)
 })
 
 app.get('/info', (req, res) => {
